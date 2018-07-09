@@ -1,0 +1,10 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation domainDependencies.values()
+    testImplementation domainTestDependencies.values()
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
