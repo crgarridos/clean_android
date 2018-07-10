@@ -1,4 +1,4 @@
-package me.cgarrido.cleanandroid.data
+package me.cgarrido.cleanandroid.data.cache
 
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -9,6 +9,4 @@ interface SongCacheSource {
     fun hasElements(): Single<Boolean>
     fun getSongs(): Single<List<Song>>
     fun save(songs: List<Song>, timestamp: Long): Completable
-    fun updateLastCacheTimestamp(): Completable
-
 }

@@ -3,6 +3,7 @@ package me.cgarrido.cleanandroid.data
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.Completable
 import io.reactivex.Single
+import me.cgarrido.cleanandroid.data.cache.SongCacheSource
 import me.cgarrido.cleanandroid.domain.model.Song
 import me.cgarrido.cleanandroid.domain.test.factory.SongFactory
 import org.junit.Test
