@@ -4,7 +4,7 @@ import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.persistence.room.Room
 import me.cgarrido.cleanandroid.data.cache.database.AppDatabase
 import me.cgarrido.cleanandroid.data.cache.entity.SongEntity
-import me.cgarrido.cleanandroid.data.cache.tets.factory.SongEntityFactory
+import me.cgarrido.cleanandroid.data.cache.test.factory.SongEntityFactory
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test
@@ -19,9 +19,7 @@ class SongDaoTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val database = Room.inMemoryDatabaseBuilder(
-            RuntimeEnvironment.application.applicationContext,
-            AppDatabase::class.java)
+    private val database = Room.inMemoryDatabaseBuilder(RuntimeEnvironment.application, AppDatabase::class.java)
             .allowMainThreadQueries()
             .build()
 
@@ -39,6 +37,21 @@ class SongDaoTest {
             getSongs().test()
                     //dao returns the list of entities sorted by id
                     .assertValue(songs.sortedBy(SongEntity::id))
+        }
+    }
+
+    @Test
+    fun count() {
+        database.getSongEntityDao().apply {
+            count().test().assertValue(0)
+
+            insertAll(SongEntityFactory.makeList(10))
+
+            count().test().assertValue(10)
+
+            insertAll(SongEntityFactory.makeList(15))
+
+            count().test().assertValue(25)
         }
     }
 }

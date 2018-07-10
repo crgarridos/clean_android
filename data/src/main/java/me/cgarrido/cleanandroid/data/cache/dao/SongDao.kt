@@ -13,6 +13,9 @@ interface SongDao {
     @Query("SELECT * FROM song")
     fun getSongs(): Single<List<SongEntity>>
 
+    @Query("SELECT count(*) FROM song")
+    fun count(): Single<Int>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(songs: List<SongEntity>)
 
