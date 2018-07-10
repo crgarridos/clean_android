@@ -1,4 +1,4 @@
-package me.cgarrido.cleanandroid.data.cache
+package me.cgarrido.cleanandroid.data
 
 import io.reactivex.Completable
 import io.reactivex.Single
