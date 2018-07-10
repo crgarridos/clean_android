@@ -13,8 +13,3 @@ data class SongEntity(
         val url: String,
         val thumbnailUrl: String
 )
-//{
-//    override fun toString(): String {
-//        return id.toString()
-//    }
-//}

@@ -1,4 +1,4 @@
-package me.cgarrido.cleanandroid.util
+package me.cgarrido.cleanandroid.data.util
 
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
@@ -10,7 +10,7 @@ object DataFactory {
     }
 
     fun randomInt(): Int {
-        return ThreadLocalRandom.current().nextInt(0, 1000 + 1)
+        return ThreadLocalRandom.current().nextInt(0, 1_000_000 + 1)
     }
 
     fun randomLong(): Long {
