@@ -1,4 +1,4 @@
-package me.cgarrido.cleanandroid.data.cache.tets.factory
+package me.cgarrido.cleanandroid.data.cache.test.factory
 
 import me.cgarrido.cleanandroid.data.cache.entity.SongEntity
 import me.cgarrido.cleanandroid.util.DataFactory
