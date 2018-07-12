@@ -6,7 +6,7 @@ import me.cgarrido.cleanandroid.domain.model.Song
 import me.cgarrido.cleanandroid.domain.repository.SongRepository
 import javax.inject.Inject
 
-class GetSongs
+open class GetSongs
 @Inject constructor(private val songRepository: SongRepository,
                     schedulers: ExecutionSchedulers) : SingleUseCase<Nothing?, List<Song>>(schedulers) {
 

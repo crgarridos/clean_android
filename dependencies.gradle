@@ -4,13 +4,18 @@ ext {
     kotlinVersion = kotlin_version
     javaxAnnotationVersion = '1.0'
     javaxInjectVersion = '1'
-    rxJavaVersion = '2.0.2'
-    rxKotlinVersion = '2.1.0'
+    rxJavaVersion = '2.1.16'
+    rxKotlinVersion = '2.2.0'
+    rxAndroidVersion = '2.0.2'
     roomVersion = '1.1.1'
     retrofitVersion = '2.4.0'
     okHttpVersion = '3.10.0'
     archCompVersion = '1.1.1'
     gsonVersion = '2.8.5'
+    daggerVersion = '2.16'
+    supportLibraryVersion = '27.1.1'
+    xConstraintLayoutVersion = '1.1.2'
+    timberVersion = '4.7.1'
 
     //Testing
     jUnitVersion = '4.12'
@@ -22,7 +27,7 @@ ext {
     domainDependencies = [
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
-            rxJava:             "io.reactivex.rxjava2:rxkotlin:${rxJavaVersion}"
+            rxJava:             "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}"
     ]
 
     domainTestDependencies = [
@@ -61,6 +66,44 @@ ext {
 
     dataKaptDependencies = [
             roomCompiler:       "android.arch.persistence.room:compiler:${roomVersion}"
+    ]
+
+
+    uiDependencies = [
+            dagger:             "com.google.dagger:dagger:${daggerVersion}",
+            daggerAndroid:      "com.google.dagger:dagger-android:${daggerVersion}",
+            daggerSupport:      "com.google.dagger:dagger-android-support:${daggerVersion}",
+            rxKotlin:           "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}",
+            kotlin:             "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinVersion}",
+            rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
+            archRuntime:        "android.arch.lifecycle:runtime:${archCompVersion}",
+            archExtensions:     "android.arch.lifecycle:extensions:${archCompVersion}",
+
+            androidAnnotations: "com.android.support:support-annotations:${supportLibraryVersion}",
+            androidSupportV4:   "com.android.support:support-v4:${supportLibraryVersion}",
+            androidSupportV13:  "com.android.support:support-v13:${supportLibraryVersion}",
+            appCompatV7:        "com.android.support:appcompat-v7:${supportLibraryVersion}",
+            supportRecyclerView:"com.android.support:recyclerview-v7:${supportLibraryVersion}",
+            supportDesign:      "com.android.support:design:${supportLibraryVersion}",
+            xConstraintLayout:  "androidx.constraintlayout:constraintlayout:${xConstraintLayoutVersion}",
+            timber:             "com.jakewharton.timber:timber:${timberVersion}",
+    ]
+
+    uiTestDependencies = [
+            junit:              "junit:junit:${jUnitVersion}",
+            kotlinJUnit:        "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}",
+            assertj:            "org.assertj:assertj-core:${assertJVersion}",
+            mockito:            "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
+            robolectric:        "org.robolectric:robolectric:${robolectricVersion}",
+            archTesting:        "android.arch.core:core-testing:${archCompVersion}",
+    ]
+
+    uiKaptDependencies = [
+            daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerProcessor:    "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            archCompiler:       "android.arch.lifecycle:compiler:${archCompVersion}"
     ]
 
 }
