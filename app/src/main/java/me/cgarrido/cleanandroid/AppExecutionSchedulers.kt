@@ -4,8 +4,10 @@ import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.cgarrido.cleanandroid.util.executor.ExecutionSchedulers
+import javax.inject.Inject
 
-class AppExecutionSchedulers : ExecutionSchedulers {
+class AppExecutionSchedulers
+@Inject constructor() : ExecutionSchedulers {
 
     override val networkIO: Scheduler
         get() = Schedulers.io()

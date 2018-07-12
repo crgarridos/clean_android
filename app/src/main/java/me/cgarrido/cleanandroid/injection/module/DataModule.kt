@@ -10,6 +10,7 @@ import me.cgarrido.cleanandroid.data.SongRemoteSource
 import me.cgarrido.cleanandroid.data.SongRepositoryImpl
 import me.cgarrido.cleanandroid.data.cache.AppPreferences
 import me.cgarrido.cleanandroid.data.cache.SongCacheSourceImpl
+import me.cgarrido.cleanandroid.data.cache.dao.SongDao
 import me.cgarrido.cleanandroid.data.cache.database.AppDatabase
 import me.cgarrido.cleanandroid.data.remote.SongRemoteSourceImpl
 import me.cgarrido.cleanandroid.data.remote.service.ServiceFactory
@@ -17,29 +18,37 @@ import me.cgarrido.cleanandroid.data.remote.service.SongService
 import me.cgarrido.cleanandroid.domain.repository.SongRepository
 
 @Module
-interface DataModule {
+abstract class DataModule {
     @Binds
-    fun bindSongRepository(repo: SongRepositoryImpl): SongRepository
+    abstract fun bindSongRepository(repo: SongRepositoryImpl): SongRepository
 
     @Binds
-    fun bindSongCacheSource(repo: SongCacheSourceImpl): SongCacheSource
+    abstract fun bindSongCacheSource(repo: SongCacheSourceImpl): SongCacheSource
 
     @Binds
-    fun bindSongRemoteSource(repo: SongRemoteSourceImpl): SongRemoteSource
+    abstract fun bindSongRemoteSource(repo: SongRemoteSourceImpl): SongRemoteSource
 
     @Module
     companion object {
         @Provides
+        @JvmStatic
         fun provideDatabase(context: Context): AppDatabase {
             return AppDatabase.getInstance(context)
         }
 
         @Provides
+        @JvmStatic
+        fun provideSongDao(database: AppDatabase): SongDao =
+                database.getSongEntityDao()
+
+        @Provides
+        @JvmStatic
         fun providePreferences(context: Context): AppPreferences {
             return AppPreferences(context)
         }
 
         @Provides
+        @JvmStatic
         fun provideSongService(): SongService {
             return ServiceFactory.makeSongService(BuildConfig.DEBUG)
         }

@@ -22,7 +22,7 @@ object ServiceFactory {
 
     private fun makeRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
+                .baseUrl("http://jsonplaceholder.typicode.com/")
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
