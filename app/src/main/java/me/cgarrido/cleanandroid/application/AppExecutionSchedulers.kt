@@ -1,4 +1,4 @@
-package me.cgarrido.cleanandroid
+package me.cgarrido.cleanandroid.application
 
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

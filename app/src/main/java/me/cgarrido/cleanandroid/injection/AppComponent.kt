@@ -4,11 +4,8 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import me.cgarrido.cleanandroid.CleanApplication
-import me.cgarrido.cleanandroid.injection.module.ActivityBindingModule
-import me.cgarrido.cleanandroid.injection.module.DataModule
-import me.cgarrido.cleanandroid.injection.module.UIModule
-import me.cgarrido.cleanandroid.injection.module.ViewModelModule
+import me.cgarrido.cleanandroid.application.CleanApplication
+import me.cgarrido.cleanandroid.injection.module.*
 import javax.inject.Singleton
 
 @Singleton
@@ -17,7 +14,8 @@ import javax.inject.Singleton
     ActivityBindingModule::class,
     ViewModelModule::class,
     UIModule::class,
-    DataModule::class
+    DataModule::class,
+    PicassoModule::class
 ])
 interface AppComponent : AndroidInjector<CleanApplication> {
 

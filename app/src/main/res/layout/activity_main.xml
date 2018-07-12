@@ -4,16 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SongsActivity">
+    tools:context=".ui.songs.SongsActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/songsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="7"
+        tools:listitem="@layout/item_song" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

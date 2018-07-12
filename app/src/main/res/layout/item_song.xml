@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/small">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/thumbnailImageView"
+        android:layout_width="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/titleTextView"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small"
+        android:layout_marginLeft="@dimen/small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toTopOf="@id/thumbnailImageView"
+        app:layout_constraintStart_toEndOf="@id/thumbnailImageView"
+        app:layout_constraintBottom_toBottomOf="@id/thumbnailImageView"
+        tools:text="@tools:sample/cities" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

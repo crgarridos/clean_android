@@ -16,6 +16,7 @@ ext {
     supportLibraryVersion = '27.1.1'
     xConstraintLayoutVersion = '1.1.2'
     timberVersion = '4.7.1'
+    picassoVersion = '2.71828'
 
     //Testing
     jUnitVersion = '4.12'
@@ -90,6 +91,7 @@ ext {
             supportDesign:      "com.android.support:design:${supportLibraryVersion}",
             xConstraintLayout:  "androidx.constraintlayout:constraintlayout:${xConstraintLayoutVersion}",
             timber:             "com.jakewharton.timber:timber:${timberVersion}",
+            picasso:            "com.squareup.picasso:picasso:${picassoVersion}"
     ]
 
     uiTestDependencies = [
