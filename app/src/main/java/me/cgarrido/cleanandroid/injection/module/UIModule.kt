@@ -14,6 +14,6 @@ interface UIModule {
     fun bindContext(application: CleanApplication): Context
 
     @Binds
-    fun bindExecutionSchedulers(uiThread: AppExecutionSchedulers): ExecutionSchedulers
+    fun bindExecutionSchedulers(schedulers: AppExecutionSchedulers): ExecutionSchedulers
 
 }

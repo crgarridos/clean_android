@@ -11,7 +11,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "me.cgarrido.cleanandroid.test.TestRunner"
     }
     buildTypes {
         release {
@@ -31,6 +31,33 @@ dependencies {
     testImplementation uiTestDependencies.values()
     kapt uiKaptDependencies.values()
 
-//    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
-//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+
+    // Instrumentation test dependencies
+    androidTestImplementation project(path: ':domain', configuration: 'testClasses')
+    androidTestImplementation uiAndroidTestDependencies.junit
+    androidTestImplementation uiAndroidTestDependencies.mockito
+    androidTestImplementation uiAndroidTestDependencies.mockitoAndroid
+    androidTestImplementation(uiAndroidTestDependencies.espressoCore) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(uiAndroidTestDependencies.androidRunner) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(uiAndroidTestDependencies.androidRules) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(uiAndroidTestDependencies.espressoIntents) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(uiAndroidTestDependencies.espressoContrib) {
+        exclude module: 'appcompat'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+        exclude module: 'support-v13'
+        exclude module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'design'
+    }
+
+    kaptAndroidTest uiKaptDependencies.daggerCompiler
 }
