@@ -1,10 +1,13 @@
 package me.cgarrido.cleanandroid.data.cache
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.persistence.room.Room
 import me.cgarrido.cleanandroid.data.cache.database.AppDatabase
 import me.cgarrido.cleanandroid.data.cache.mapper.SongEntityMapper
+import me.cgarrido.cleanandroid.domain.model.Song
 import me.cgarrido.cleanandroid.domain.test.factory.SongFactory
 import org.junit.After
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -15,6 +18,9 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class SongCacheSourceImplTest {
+
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     val database = Room.inMemoryDatabaseBuilder(RuntimeEnvironment.application, AppDatabase::class.java)
             .allowMainThreadQueries()
@@ -60,14 +66,19 @@ class SongCacheSourceImplTest {
 
     @Test
     fun getSongs() {
-        cache.getSongs().test()
+        val pageSize = 10
+
+        cache.getSongs(pageSize)
+                .map { it as List<Song> }
+                .test()
                 .assertValue(emptyList())
 
-        val songs = listOf(SongFactory.makeSong())
-        cache.save(songs, System.currentTimeMillis()).test()
-                .assertComplete()
+        val songs = SongFactory.makeList(pageSize)
+        cache.save(songs, 1000L).blockingAwait()
 
-        cache.getSongs().test()
+        cache.getSongs(pageSize)
+                .map { it as List<Song> }
+                .test()
                 .assertValue(songs)
     }
 

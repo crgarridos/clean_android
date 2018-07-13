@@ -1,14 +1,20 @@
 package me.cgarrido.cleanandroid.data
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.Completable
 import io.reactivex.Single
 import me.cgarrido.cleanandroid.domain.model.Song
 import me.cgarrido.cleanandroid.domain.test.factory.SongFactory
+import me.cgarrido.cleanandroid.domain.test.utils.toPagedList
+import org.junit.Rule
 import org.junit.Test
 import java.net.UnknownHostException
 
 class SongRepositoryImplTest {
+
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val cache = mock<SongCacheSource>()
     private val remote = mock<SongRemoteSource>()
@@ -23,7 +29,7 @@ class SongRepositoryImplTest {
         stubCacheHasElements(cache, songs)
         stubCacheIsExpired(cache, false)
 
-        repository.getAll().test()
+        repository.getAll().map { it as List<Song> }.test()
                 .assertValue(songs)
     }
 
@@ -35,9 +41,9 @@ class SongRepositoryImplTest {
         stubRemoteGetSongsResponse(Single.just(songs))
         stubSaveElements(cache)
         stubCacheIsExpired(cache, true)
-        stubCacheHasElements(cache, emptyList())
+        stubCacheHasElements(cache, songs)
 
-        repository.getAll().test()
+        repository.getAll().map { it as List<Song> }.test()
                 .assertValue(songs)
 
         verify(cache).save(eq(songs), any())
@@ -65,10 +71,11 @@ class SongRepositoryImplTest {
     }
 
     private fun stubCacheHasElements(cache: SongCacheSource, songs: List<Song>) {
+        val pageSize = if(songs.isEmpty()) 1 else songs.size
         whenever(cache.hasElements())
                 .thenReturn(Single.just(songs.isNotEmpty()))
-        whenever(cache.getSongs())
-                .thenReturn(Single.just(songs))
+        whenever(cache.getSongs(any()))
+                .thenReturn(Single.just(songs.toPagedList(pageSize)))
     }
 
     private fun stubCacheIsExpired(cache: SongCacheSource, isExpired: Boolean) {

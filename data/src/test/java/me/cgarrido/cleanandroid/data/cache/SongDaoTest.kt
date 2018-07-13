@@ -56,7 +56,7 @@ class SongDaoTest {
         database.getSongEntityDao().apply {
             insertAll(songs)
 
-            repeat(10000) {
+            repeat(10) {
 
                 val pageSize: Int = DataFactory.randomInt(5..50)
                 RxPagedListBuilder(getSongs(), pageSize)

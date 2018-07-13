@@ -12,6 +12,7 @@ open class GetSongs
 
     override fun execute(params: Nothing?): Single<List<Song>> {
         return songRepository.getAll()
+                .map { it as List<Song> }
                 .subscribeOn(schedulers.networkIO)
                 .observeOn(schedulers.mainThread)
     }

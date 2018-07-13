@@ -1,5 +1,6 @@
 package me.cgarrido.cleanandroid.data.cache
 
+import android.arch.paging.PagedList
 import android.arch.paging.RxPagedListBuilder
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -28,12 +29,11 @@ class SongCacheSourceImpl
         return dao.count().map { it > 0 }
     }
 
-    override fun getSongs(): Single<List<Song>> {
-        return RxPagedListBuilder(dao.getSongs().map(mapper::mapFromEntity), 50)
+    override fun getSongs(pageSize: Int): Single<PagedList<Song>> {
+        return RxPagedListBuilder(dao.getSongs().map(mapper::mapFromEntity), pageSize)
                 .buildObservable()
                 .take(1)
                 .singleOrError()
-                .map { it as List<Song> }
     }
 
     override fun save(songs: List<Song>, timestamp: Long): Completable {

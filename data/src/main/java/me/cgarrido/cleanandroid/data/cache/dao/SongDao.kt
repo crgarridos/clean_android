@@ -11,7 +11,7 @@ import me.cgarrido.cleanandroid.data.cache.entity.SongEntity
 
 @Dao
 interface SongDao {
-    @Query("SELECT * FROM song ORDER BY id DESC")
+    @Query("SELECT * FROM song")
     fun getSongs(): DataSource.Factory<Int, SongEntity>
 
     @Query("SELECT count(*) FROM song")

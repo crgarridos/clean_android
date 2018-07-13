@@ -42,7 +42,7 @@ ext {
     domainTestDependencies = [
             junit:              "junit:junit:${jUnitVersion}",
             mockito:            "com.nhaarman.mockitokotlin2:mockito-kotlin:${mockitoKotlinVersion}",
-            assertj:            "org.assertj:assertj-core:${assertJVersion}"
+            assertj:            "org.assertj:assertj-core:${assertJVersion}",
     ]
 
     dataDependencies = [
@@ -72,7 +72,7 @@ ext {
             robolectric:        "org.robolectric:robolectric:${robolectricVersion}",
 
             roomTesting:        "android.arch.persistence.room:testing:${roomVersion}",
-            pagingTesting:      "android.arch.paging:common:${pagingVersion}",
+//            pagingTesting:      "android.arch.paging:common:${pagingVersion}",
             archTesting:        "android.arch.core:core-testing:${archCompVersion}"
     ]
 

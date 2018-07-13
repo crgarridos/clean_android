@@ -7,6 +7,7 @@ import io.reactivex.Single
 import me.cgarrido.cleanandroid.domain.model.Song
 import me.cgarrido.cleanandroid.domain.repository.SongRepository
 import me.cgarrido.cleanandroid.domain.test.factory.SongFactory
+import me.cgarrido.cleanandroid.domain.test.utils.toPagedList
 import me.cgarrido.cleanandroid.util.executor.TestExecutionSchedulers
 import org.junit.Before
 import org.junit.Test
@@ -24,7 +25,7 @@ class GetSongsTest {
         songs = SongFactory.makeList(5)
 
         whenever(repository.getAll())
-                .thenReturn(Single.just(songs))
+                .thenReturn(Single.just(songs.toPagedList(20)))
     }
 
     @Test
@@ -40,5 +41,4 @@ class GetSongsTest {
         verify(repository).getAll()
     }
 }
-
 
