@@ -1,9 +1,9 @@
 package me.cgarrido.cleanandroid.domain
 
 import io.reactivex.Single
-import me.cgarrido.cleanandroid.util.executor.ExecutionSchedulers
 import me.cgarrido.cleanandroid.domain.model.Song
 import me.cgarrido.cleanandroid.domain.repository.SongRepository
+import me.cgarrido.cleanandroid.util.executor.ExecutionSchedulers
 import javax.inject.Inject
 
 open class GetSongs

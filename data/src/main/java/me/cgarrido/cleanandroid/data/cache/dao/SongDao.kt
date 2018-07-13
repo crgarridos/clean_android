@@ -1,5 +1,6 @@
 package me.cgarrido.cleanandroid.data.cache.dao
 
+import android.arch.paging.DataSource
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -10,8 +11,8 @@ import me.cgarrido.cleanandroid.data.cache.entity.SongEntity
 
 @Dao
 interface SongDao {
-    @Query("SELECT * FROM song")
-    fun getSongs(): Single<List<SongEntity>>
+    @Query("SELECT * FROM song ORDER BY id DESC")
+    fun getSongs(): DataSource.Factory<Int, SongEntity>
 
     @Query("SELECT count(*) FROM song")
     fun count(): Single<Int>

@@ -1,5 +1,7 @@
 package me.cgarrido.cleanandroid.ui.songs
 
+import android.arch.paging.PagedListAdapter
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +11,7 @@ import me.cgarrido.cleanandroid.R
 import me.cgarrido.cleanandroid.domain.model.Song
 import me.cgarrido.cleanandroid.utils.inflate
 
-class SongsAdapter(private var songs: List<Song>, private val picasso: Picasso) : RecyclerView.Adapter<SongsAdapter.SongViewHolder>() {
+class SongsAdapter(private var songs: List<Song>, private val picasso: Picasso) : PagedListAdapter<Song, SongsAdapter.SongViewHolder>(DIFF_CALLBACK) {
 
     override fun getItemCount(): Int = songs.size
 
@@ -29,6 +31,20 @@ class SongsAdapter(private var songs: List<Song>, private val picasso: Picasso) 
                     .placeholder(android.R.drawable.stat_sys_download)
                     .into(itemView.thumbnailImageView)
 
+        }
+    }
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Song>() {
+            // Concert details may have changed if reloaded from the database,
+            // but ID is fixed.
+            override fun areItemsTheSame(oldConcert: Song,
+                                         newConcert: Song): Boolean =
+                    oldConcert.id == newConcert.id
+
+            override fun areContentsTheSame(oldConcert: Song,
+                                            newConcert: Song): Boolean =
+                    oldConcert == newConcert
         }
     }
 }

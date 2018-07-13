@@ -19,7 +19,7 @@ class SongRepositoryImpl
                         cache.getSongs()
                     else remote.getSongs().flatMap {
                         cache.save(it, System.currentTimeMillis())
-                                .toSingleDefault(it)
+                                .andThen(cache.getSongs())
                     }
                 }
     }

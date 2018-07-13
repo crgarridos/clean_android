@@ -9,8 +9,8 @@ object DataFactory {
         return UUID.randomUUID().toString()
     }
 
-    fun randomInt(): Int {
-        return ThreadLocalRandom.current().nextInt(0, 1_000_000 + 1)
+    fun randomInt(range: IntRange = 0..1_000_000): Int {
+        return ThreadLocalRandom.current().nextInt(range.start, range.endInclusive)
     }
 
     fun randomLong(): Long {

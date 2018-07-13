@@ -1,10 +1,12 @@
 package me.cgarrido.cleanandroid.data.cache
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
+import android.arch.paging.RxPagedListBuilder
 import android.arch.persistence.room.Room
 import me.cgarrido.cleanandroid.data.cache.database.AppDatabase
 import me.cgarrido.cleanandroid.data.cache.entity.SongEntity
 import me.cgarrido.cleanandroid.data.cache.test.factory.SongEntityFactory
+import me.cgarrido.cleanandroid.util.DataFactory
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test
@@ -34,9 +36,36 @@ class SongDaoTest {
 
         database.getSongEntityDao().apply {
             insertAll(songs)
-            getSongs().test()
-                    //dao returns the list of entities sorted by id
-                    .assertValue(songs.sortedBy(SongEntity::id))
+
+            RxPagedListBuilder(getSongs(), 5).buildObservable()
+                    .test()
+                    .assertValue {
+                        //dao returns the list of entities sorted by id
+                        val sortedSongs = songs.sortedBy(SongEntity::id)
+                        it.map { it in sortedSongs }
+                                .all { true }
+                    }
+        }
+    }
+
+
+    @Test
+    fun getSongs_pageSize() {
+        val songs = SongEntityFactory.makeList(500)
+
+        database.getSongEntityDao().apply {
+            insertAll(songs)
+
+            repeat(10000) {
+
+                val pageSize: Int = DataFactory.randomInt(5..50)
+                RxPagedListBuilder(getSongs(), pageSize)
+                        .buildObservable()
+                        .map { it.filterNotNull() }
+                        .map { it.size }
+                        .test()
+                        .assertValue(pageSize * 3)
+            }
         }
     }
 

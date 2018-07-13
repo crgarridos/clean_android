@@ -11,6 +11,7 @@ ext {
     retrofitVersion = '2.4.0'
     okHttpVersion = '3.10.0'
     archCompVersion = '1.1.1'
+    pagingVersion = '1.0.0'
     gsonVersion = '2.8.5'
     daggerVersion = '2.16'
     supportLibraryVersion = '27.1.1'
@@ -33,7 +34,9 @@ ext {
     domainDependencies = [
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
-            rxJava:             "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}"
+            rxJava:             "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}",
+
+            pagingRuntime:      "android.arch.paging:runtime:${pagingVersion}",
     ]
 
     domainTestDependencies = [
@@ -50,6 +53,8 @@ ext {
 
             roomRuntime:        "android.arch.persistence.room:runtime:${roomVersion}",
             roomRxJava:         "android.arch.persistence.room:rxjava2:${roomVersion}",
+            pagingRuntime:      "android.arch.paging:runtime:${pagingVersion}",
+            pagingRxJava:       "android.arch.paging:rxjava2:${pagingVersion}-rc1",
 
             retrofit:           "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             retrofitAdapter:    "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
@@ -67,6 +72,7 @@ ext {
             robolectric:        "org.robolectric:robolectric:${robolectricVersion}",
 
             roomTesting:        "android.arch.persistence.room:testing:${roomVersion}",
+            pagingTesting:      "android.arch.paging:common:${pagingVersion}",
             archTesting:        "android.arch.core:core-testing:${archCompVersion}"
     ]
 
@@ -87,6 +93,7 @@ ext {
             archRuntime:        "android.arch.lifecycle:runtime:${archCompVersion}",
             archExtensions:     "android.arch.lifecycle:extensions:${archCompVersion}",
             roomRuntime:        "android.arch.persistence.room:runtime:${archCompVersion}",
+            pagingRuntime:       "android.arch.paging:runtime:${pagingVersion}",
 
             androidAnnotations: "com.android.support:support-annotations:${supportLibraryVersion}",
             androidSupportV4:   "com.android.support:support-v4:${supportLibraryVersion}",
