@@ -25,14 +25,14 @@ class GetSongsTest {
         songs = SongFactory.makeList(5)
 
         whenever(repository.getAll())
-                .thenReturn(Single.just(songs.toPagedList(20)))
+                .thenReturn(Single.just(songs.toPagedList()))
     }
 
     @Test
     fun retrieveSongs() {
         getSongs.execute(null).test()
                 .assertComplete()
-                .assertValue(songs)
+                .assertValue(songs.toPagedList())
     }
 
     @Test
