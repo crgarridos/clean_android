@@ -6,6 +6,7 @@ import io.reactivex.Single
 import me.cgarrido.cleanandroid.domain.GetSongs
 import me.cgarrido.cleanandroid.domain.model.Song
 import me.cgarrido.cleanandroid.domain.test.factory.SongFactory
+import me.cgarrido.cleanandroid.domain.test.utils.toPagedList
 import me.cgarrido.cleanandroid.viewmodel.me.cgarrido.cleanandroid.ui.test.utils.testValue
 import me.cgarrido.cleanandroid.viewmodel.resources.Result
 import org.junit.Assert.assertEquals
@@ -14,7 +15,6 @@ import org.junit.Test
 
 
 class SongsViewModelTest {
-
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -52,7 +52,7 @@ class SongsViewModelTest {
 
     private fun stubGetSongsUseCase(single: Single<List<Song>>) {
         whenever(getSongsUseCase.execute(null))
-                .thenReturn(single)
+                .thenReturn(single.map { it.toPagedList() })
     }
 
 }

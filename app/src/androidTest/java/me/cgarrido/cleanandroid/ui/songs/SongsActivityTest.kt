@@ -13,6 +13,7 @@ import me.cgarrido.cleanandroid.R
 import me.cgarrido.cleanandroid.domain.model.Song
 import me.cgarrido.cleanandroid.domain.repository.SongRepository
 import me.cgarrido.cleanandroid.domain.test.factory.SongFactory
+import me.cgarrido.cleanandroid.domain.test.utils.toPagedList
 import me.cgarrido.cleanandroid.test.TestApplication
 import me.cgarrido.cleanandroid.test.matcher.RecyclerViewMatcher.Companion.withRecyclerView
 import org.junit.Before
@@ -33,7 +34,7 @@ class SongsActivityTest {
     @Before
     fun setup() {
         whenever(repo.getAll())
-                .thenReturn(Single.just(songs))
+                .thenReturn(Single.just(songs.toPagedList()))
     }
 
     @Test

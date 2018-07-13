@@ -11,9 +11,7 @@ import me.cgarrido.cleanandroid.R
 import me.cgarrido.cleanandroid.domain.model.Song
 import me.cgarrido.cleanandroid.utils.inflate
 
-class SongsAdapter(private var songs: List<Song>, private val picasso: Picasso) : PagedListAdapter<Song, SongsAdapter.SongViewHolder>(DIFF_CALLBACK) {
-
-    override fun getItemCount(): Int = songs.size
+class SongsAdapter(private val picasso: Picasso) : PagedListAdapter<Song, SongsAdapter.SongViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
         return SongViewHolder(parent.inflate(R.layout.item_song), picasso)
@@ -21,7 +19,7 @@ class SongsAdapter(private var songs: List<Song>, private val picasso: Picasso) 
 
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
-        holder.bind(songs[holder.adapterPosition])
+        holder.bind(getItem(holder.adapterPosition) ?: return)
     }
 
     class SongViewHolder(view: View, private val picasso: Picasso) : RecyclerView.ViewHolder(view) {

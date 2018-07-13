@@ -2,6 +2,7 @@ package me.cgarrido.cleanandroid.ui.songs
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.arch.paging.PagedList
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import com.squareup.picasso.Picasso
@@ -23,10 +24,13 @@ class SongsActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: SongsViewModel
+    private lateinit var songsAdapter: SongsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        songsAdapter = SongsAdapter(picasso)
+        songsRecyclerView.adapter = songsAdapter
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(SongsViewModel::class.java)
@@ -39,7 +43,7 @@ class SongsActivity : BaseActivity() {
     }
 
 
-    private fun handleSongsResult(result: Result<List<Song>>) {
+    private fun handleSongsResult(result: Result<PagedList<Song>>) {
         when (result) {
             is Result.Success -> refreshSongList(result.data)
             is Result.Error -> showError(result.throwable)
@@ -50,10 +54,10 @@ class SongsActivity : BaseActivity() {
         }
     }
 
-    private fun refreshSongList(songs: List<Song>) {
+    private fun refreshSongList(songs: PagedList<Song>) {
+        songsAdapter.submitList(songs)
         progressBar.visible = false
         songsRecyclerView.visible = true
-        songsRecyclerView.adapter = SongsAdapter(songs, picasso)
     }
 
     private fun showError(throwable: Throwable) {
