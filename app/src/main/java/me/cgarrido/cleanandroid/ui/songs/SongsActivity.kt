@@ -37,9 +37,22 @@ class SongsActivity : BaseActivity() {
 
         if (savedInstanceState == null)
             viewModel.retrieveSongs()
+    }
 
+
+
+    override fun onStart() {
+        super.onStart()
         viewModel.songs.observe(this, ::handleSongsResult)
+    }
 
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        if (viewModel.songs.value == null) {
+            viewModel.retrieveSongs()
+        }
     }
 
 
